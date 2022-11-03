@@ -2,8 +2,6 @@
 
 import streamlit as st
 import PyPDF2 
-import pdf2image
-from pdf2image import convert_from_bytes
 from PIL import Image
 import easyocr as ocr
 import numpy as np
@@ -31,8 +29,7 @@ def run():
         PDF_text = pageObj.extractText()
         if "ACORD 25" not in PDF_text:
             if len(PDF_text) == 0:
-                pil_image = pdf2image.convert_from_bytes(input_pdf.read())
-                result = reader.readtext(np.array(pil_image))
+                result = reader.readtext(np.array(input_pdf))
                 result_text = []
                 for text in result:
                     result_text.append(text[1])
