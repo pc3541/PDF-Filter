@@ -3,6 +3,8 @@ import PyPDF2
 import tesserocr
 from pdf2image import convert_from_bytes
 from PIL import Image
+from functions import convert_pdf_to_txt_pages, convert_pdf_to_txt_file, save_pages, displayPDF
+
 Image.MAX_IMAGE_PIXELS = None
 
 valid = 0
