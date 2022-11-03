@@ -1,9 +1,9 @@
 import streamlit as st
 import PyPDF2 
-import tesserocr
 from pdf2image import convert_from_bytes
 from PIL import Image
-from functions import convert_pdf_to_txt_pages, convert_pdf_to_txt_file, save_pages, displayPDF
+import easyocr as ocr
+import numpy as np
 
 Image.MAX_IMAGE_PIXELS = None
 
@@ -13,6 +13,10 @@ not_valid = 0
 st.sidebar.title("PDF Filter")
 input_pdf = st.sidebar.file_uploader("Upload PDF file(s):", type=['pdf'])
 
+def load_model(): 
+    reader = ocr.Reader(['en'],model_storage_directory='.')
+    return reader 
+
 def run():
   pdfReader = PyPDF2.PdfFileReader(input_pdf)
   pageObj = pdfReader.getPage(0) 
@@ -20,16 +24,17 @@ def run():
   if "ACORD 25" not in PDF_text:
       if len(PDF_text) == 0:
           pil_image = pdf2image.convert_from_bytes(input_pdf.read())
-          api = tesserocr.PyTessBaseAPI()
-          api.SetImage(pil_image)
-          text = api.GetUTF8Text()
-          if "ACORD 25" not in text:
-              print(filename)
+          reader = load_model()
+          result = reader.readtext(np.array(pil_image))
+          result_text = []
+          for text in result:
+            result_text.append(text[1])
+          final_text = " ".join([str(x) for x in result_text])
+          if "ACORD 25" not in final_text:
               not_valid += 1
           else:
               valid += 1
       else:
-          print(filename)
           not_valid += 1
   else:
       valid += 1
