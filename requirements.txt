@@ -1,6 +1,2 @@
 streamlit
-PyPDF2
 easyocr
-pdf2image
-Pillow
-numpy
