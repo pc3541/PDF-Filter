@@ -33,13 +33,13 @@ def run():
                 result_text.append(text[1])
             final_text = " ".join([str(x) for x in result_text])
             if "ACORD 25" not in final_text:
-                not_valid += 1
+                not_valid = not_valid + 1
             else:
-                valid += 1
+                valid = valid + 1
         else:
-            not_valid += 1
+            not_valid = not_valid + 1
     else:
-        valid += 1
+        valid = valid + 1
     st.write("")
     st.write("Valid:",valid)
     st.write("Not valid", not_valid)
