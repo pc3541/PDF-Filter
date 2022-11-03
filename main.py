@@ -12,7 +12,7 @@ valid = 0
 not_valid = 0
 
 st.sidebar.title("PDF Filter")
-input_pdf = st.sidebar.file_uploader(label="Upload PDF file(s):", type=['pdf'])
+input_pdf = st.sidebar.file_uploader(label="Upload PDF file(s):", type=['pdf'], accept_multiple_files=True)
 
 def load_model(): 
     reader = ocr.Reader(['en'],model_storage_directory='.')
