@@ -22,6 +22,7 @@ reader = load_model()
 
 def run():
     for i in range(len(uploaded_files)):
+        st.title("Documents:")
         input_pdf = uploaded_files[i]
         pdfReader = PyPDF2.PdfFileReader(input_pdf)
         pageObj = pdfReader.getPage(0) 
@@ -35,16 +36,13 @@ def run():
                     result_text.append(text[1])
                 final_text = " ".join([str(x) for x in result_text])
                 if "ACORD 25" not in final_text:
-                    not_valid = not_valid + 1
+                    st.write(input_pdf.name, "(bogus)")
                 else:
-                    valid = valid + 1
+                    st.write(input_pdf.name, "(valid)")
             else:
-                not_valid = not_valid + 1
+                st.write(input_pdf.name, "(bogus)")
         else:
-            valid = valid + 1
-        st.write("")
-        st.write("Valid:",valid)
-        st.write("Not valid", not_valid)
+            st.write(input_pdf.name, "(valid)")
     
 if st.sidebar.button("Run filtering"):
     run()
