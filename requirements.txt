@@ -1,6 +1,6 @@
 streamlit
 PyPDF2
-tesserocr
+easyocr
 pdf2image
 Pillow
-pdfminer
+numpy
