@@ -21,7 +21,7 @@ def load_model():
 reader = load_model()
 
 def run():
-    for i in len(uploaded_files):
+    for i in range(len(uploaded_files)):
         input_pdf = uploaded_files[i]
         pdfReader = PyPDF2.PdfFileReader(input_pdf)
         pageObj = pdfReader.getPage(0) 
