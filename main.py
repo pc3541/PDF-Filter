@@ -40,10 +40,9 @@ def run():
             not_valid += 1
     else:
         valid += 1
-
-st.write("")
-st.write("Valid:",valid)
-st.write("Not valid", not_valid)
+    st.write("")
+    st.write("Valid:",valid)
+    st.write("Not valid", not_valid)
     
 if st.sidebar.button("Run filtering"):
     run()
