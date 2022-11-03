@@ -1,7 +1,7 @@
 import streamlit as st
 import PyPDF2 
 import tesserocr
-from pdf2image import convert_from_path
+from pdf2image import convert_from_bytes
 from PIL import Image
 Image.MAX_IMAGE_PIXELS = None
 
@@ -17,10 +17,9 @@ def run():
   PDF_text = pageObj.extractText()
   if "ACORD 25" not in PDF_text:
       if len(PDF_text) == 0:
-          pil_image_lst = convert_from_path(f, 500)
-          image = pil_image_lst[0]
+          pil_image = pdf2image.convert_from_bytes(input_pdf.read())
           api = tesserocr.PyTessBaseAPI()
-          api.SetImage(image)
+          api.SetImage(pil_image)
           text = api.GetUTF8Text()
           if "ACORD 25" not in text:
               print(filename)
