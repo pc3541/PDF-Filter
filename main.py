@@ -14,11 +14,13 @@ not_valid = 0
 st.sidebar.title("PDF Filter")
 input_pdf = st.sidebar.file_uploader(label="Upload PDF file(s):", type=['pdf'])
 
-reader = ocr.Reader(['en'],model_storage_directory='.')
+def load_model(): 
+    reader = ocr.Reader(['en'],model_storage_directory='.')
+    return reader 
+
+reader = load_model()
 
 def run():
-    st.write("Bogus documents:")
-    st.write("")
     pdfReader = PyPDF2.PdfFileReader(input_pdf)
     pageObj = pdfReader.getPage(0) 
     PDF_text = pageObj.extractText()
@@ -31,12 +33,10 @@ def run():
                 result_text.append(text[1])
             final_text = " ".join([str(x) for x in result_text])
             if "ACORD 25" not in final_text:
-                st.write(input_pdf.name)
                 not_valid += 1
             else:
                 valid += 1
         else:
-            st.write(input_pdf.name)
             not_valid += 1
     else:
         valid += 1
