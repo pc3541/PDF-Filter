@@ -5,8 +5,6 @@ from PIL import Image
 import easyocr as ocr
 import numpy as np
 
-Image.MAX_IMAGE_PIXELS = None
-
 valid = 0
 not_valid = 0
 
