@@ -30,7 +30,7 @@ def run():
         PDF_text = pageObj.extractText()
         if "ACORD 25" not in PDF_text:
             if len(PDF_text) == 0:
-                pil_image = pdf2image.convert_from_bytes(input_pdf[0].read())
+                pil_image = pdf2image.convert_from_bytes(input_pdf.read(0))
                 result = reader.readtext(np.array(pil_image))
                 result_text = []
                 for text in result:
