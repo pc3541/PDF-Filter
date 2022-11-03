@@ -48,5 +48,3 @@ def run():
     
 if st.sidebar.button("Run filtering"):
     run()
-
-st.legacy_caching.clear_cache()
