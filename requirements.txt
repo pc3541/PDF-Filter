@@ -3,3 +3,4 @@ PyPDF2
 tesserocr
 pdf2image
 Pillow
+pdfminer
