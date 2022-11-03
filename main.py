@@ -1,5 +1,6 @@
 import streamlit as st
 import PyPDF2 
+import pdf2image
 from pdf2image import convert_from_bytes
 from PIL import Image
 import easyocr as ocr
