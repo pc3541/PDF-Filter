@@ -11,11 +11,13 @@ valid = 0
 not_valid = 0
 
 st.sidebar.title("PDF Filter")
-input_pdf = st.sidebar.file_uploader("Upload PDF file(s):", type=['pdf'])
+input_pdf = st.sidebar.file_uploader(label="Upload PDF file(s):", type=['pdf'])
 
 def load_model(): 
     reader = ocr.Reader(['en'],model_storage_directory='.')
     return reader 
+
+reader = load_model()
 
 def run():
   pdfReader = PyPDF2.PdfFileReader(input_pdf)
@@ -24,7 +26,6 @@ def run():
   if "ACORD 25" not in PDF_text:
       if len(PDF_text) == 0:
           pil_image = pdf2image.convert_from_bytes(input_pdf.read())
-          reader = load_model()
           result = reader.readtext(np.array(pil_image))
           result_text = []
           for text in result:
