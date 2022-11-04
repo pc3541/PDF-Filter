@@ -6,6 +6,7 @@ import pdf2image
 from PIL import Image
 import easyocr as ocr
 import numpy as np
+from pathlib import Path
 
 valid = 0
 not_valid = 0
@@ -30,7 +31,7 @@ def run():
         PDF_text = pageObj.extractText()
         if "ACORD 25" not in PDF_text:
             if len(PDF_text) == 0:
-                pil_image = pdf2image.convert_from_bytes(input_pdf.getvalue())
+                pil_image = pdf2image.convert_from_path(Path(input_pdf.name))
                 result = reader.readtext(np.array(pil_image))
                 result_text = []
                 for text in result:
