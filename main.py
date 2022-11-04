@@ -31,7 +31,7 @@ def run():
         PDF_text = pageObj.extractText()
         if "ACORD 25" not in PDF_text:
             if len(PDF_text) == 0:
-                pil_image = fitz.open(input_pdf)
+                pil_image = fitz.open(Path(input_pdf.name))
                 final_image = get_img_overview(pil_image)
                 result = reader.readtext(np.array(final_image))
                 result_text = []
