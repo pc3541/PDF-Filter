@@ -2,7 +2,7 @@
 
 import streamlit as st
 import PyPDF2 
-import pdf2image
+import fitz
 from PIL import Image
 import easyocr as ocr
 import numpy as np
@@ -31,8 +31,9 @@ def run():
         PDF_text = pageObj.extractText()
         if "ACORD 25" not in PDF_text:
             if len(PDF_text) == 0:
-                pil_image = pdf2image.convert_from_path(Path(input_pdf.name))
-                result = reader.readtext(np.array(pil_image))
+                pil_image = fitz.open(input_pdf)
+                final_image = get_img_overview(pil_image)
+                result = reader.readtext(np.array(final_image))
                 result_text = []
                 for text in result:
                     result_text.append(text[1])
