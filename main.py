@@ -39,13 +39,13 @@ def run():
                         result_text.append(text[1])
                     final_text = " ".join([str(x) for x in result_text])
                     if "ACORD 25" not in final_text:
-                        st.write(input_pdf.name, "(bogus)")
+                        st.write(input_pdf.name, "**(bogus)**")
                     else:
                         st.write(input_pdf.name, "(valid)")
                 except:
-                    st.write("Error analyzing ", input_pdf.name)
+                    st.write("**Error analyzing **", input_pdf.name)
             else:
-                st.write(input_pdf.name, "(bogus)")
+                st.write(input_pdf.name, "**(bogus)**")
         else:
             st.write(input_pdf.name, "(valid)")
     
