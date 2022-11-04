@@ -1,7 +1,6 @@
 streamlit
 PyPDF2
-pdf2image
-poppler-utils
+PyMuPDF
 Pillow
 easyocr
 numpy
