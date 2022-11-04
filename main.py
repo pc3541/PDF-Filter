@@ -6,7 +6,6 @@ import fitz
 from PIL import Image
 import easyocr as ocr
 import numpy as np
-from pathlib import Path
 
 valid = 0
 not_valid = 0
@@ -31,7 +30,7 @@ def run():
             PDF_text = pageObj.extractText()
             if "ACORD 25" not in PDF_text:
                 if len(PDF_text) == 0:
-                    doc = fitz.open(Path(input_pdf))
+                    doc = fitz.open(input_pdf)
                     for page in doc:
                         pix = page.get_pixmap()
                         result = reader.readtext(np.array(pil_image))
