@@ -2,7 +2,7 @@
 
 import streamlit as st
 import PyPDF2 
-import pdf2image
+import fitz
 from PIL import Image
 import easyocr as ocr
 import numpy as np
@@ -24,15 +24,16 @@ st.title("Documents:")
 
 def run():
     for i in range(len(uploaded_files)):
-        
         input_pdf = uploaded_files[i]
         pdfReader = PyPDF2.PdfFileReader(input_pdf)
         pageObj = pdfReader.getPage(0) 
         PDF_text = pageObj.extractText()
         if "ACORD 25" not in PDF_text:
             if len(PDF_text) == 0:
-                pil_image = pdf2image.convert_from_path(Path(input_pdf.name))
-                result = reader.readtext(np.array(pil_image))
+                pil_image = fitz.open(input_pdf)
+                page = pil_image.load_page(0)  # number of page
+                pix = page.get_pixmap()
+                result = reader.readtext(np.array(pix))
                 result_text = []
                 for text in result:
                     result_text.append(text[1])
