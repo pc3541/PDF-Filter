@@ -27,7 +27,7 @@ def run():
         input_pdf = uploaded_files[i]
         pdfReader = PyPDF2.PdfFileReader(input_pdf)
         for pg in pdfReader.pages():
-            pageObj = pdfReader.getPage(pg) 
+            pageObj = pdfReader.page(pg) 
             PDF_text = pageObj.extractText()
             if "ACORD 25" not in PDF_text:
                 if len(PDF_text) == 0:
