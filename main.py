@@ -25,9 +25,9 @@ st.title("Documents:")
 def run():
     for i in range(len(uploaded_files)):
         input_pdf = uploaded_files[i]
-        pdfReader = PyPDF2.PdfFileReader(input_pdf)
+        pdfReader = PyPDF2.PdfReader(input_pdf)
         for pg in range(len(pdfReader.pages())):
-            pageObj = pdfReader.page(pg) 
+            pageObj = pdfReader.pages(pg) 
             PDF_text = pageObj.extractText()
             if "ACORD 25" not in PDF_text:
                 if len(PDF_text) == 0:
