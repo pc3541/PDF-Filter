@@ -31,16 +31,19 @@ def run():
         PDF_text = pageObj.extractText()
         if "ACORD 25" not in PDF_text:
             if len(PDF_text) == 0:
-                pil_image = pdf2image.convert_from_path(Path(input_pdf.name), poppler_path="https://github.com/pc3541/PDF-Filter/tree/main/bin")
-                result = reader.readtext(np.array(pil_image))
-                result_text = []
-                for text in result:
-                    result_text.append(text[1])
-                final_text = " ".join([str(x) for x in result_text])
-                if "ACORD 25" not in final_text:
-                    st.write(input_pdf.name, "(bogus)")
-                else:
-                    st.write(input_pdf.name, "(valid)")
+                try:
+                    pil_image = pdf2image.convert_from_path(Path(input_pdf.name), poppler_path="https://github.com/pc3541/PDF-Filter/tree/main/bin")
+                    result = reader.readtext(np.array(pil_image))
+                    result_text = []
+                    for text in result:
+                        result_text.append(text[1])
+                    final_text = " ".join([str(x) for x in result_text])
+                    if "ACORD 25" not in final_text:
+                        st.write(input_pdf.name, "(bogus)")
+                    else:
+                        st.write(input_pdf.name, "(valid)")
+                 except:
+                    st.write("Error analyzing ", input_pdf.name)
             else:
                 st.write(input_pdf.name, "(bogus)")
         else:
