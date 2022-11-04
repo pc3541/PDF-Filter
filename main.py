@@ -2,7 +2,7 @@
 
 import streamlit as st
 import PyPDF2 
-import fitz
+import pdf2image
 from PIL import Image
 import easyocr as ocr
 import numpy as np
@@ -31,19 +31,18 @@ def run():
         PDF_text = pageObj.extractText()
         if "ACORD 25" not in PDF_text:
             if len(PDF_text) == 0:
-                pil_image = fitz.open(Path(input_pdf.name))
-                final_image = get_img_overview(pil_image)
-                result = reader.readtext(np.array(final_image))
+                pil_image = pdf2image.convert_from_path(Path(input_pdf.name), poppler_path="https://github.com/pc3541/PDF-Filter/tree/main/bin")
+                result = reader.readtext(np.array(pil_image))
                 result_text = []
                 for text in result:
                     result_text.append(text[1])
                 final_text = " ".join([str(x) for x in result_text])
                 if "ACORD 25" not in final_text:
-                    st.write(input_pdf.name, "**(bogus)**")
+                    st.write(input_pdf.name, "(bogus)")
                 else:
                     st.write(input_pdf.name, "(valid)")
             else:
-                st.write(input_pdf.name, "**(bogus)**")
+                st.write(input_pdf.name, "(bogus)")
         else:
             st.write(input_pdf.name, "(valid)")
     
