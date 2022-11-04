@@ -42,7 +42,7 @@ def run():
                         st.write(input_pdf.name, "(bogus)")
                     else:
                         st.write(input_pdf.name, "(valid)")
-                 except:
+                except:
                     st.write("Error analyzing ", input_pdf.name)
             else:
                 st.write(input_pdf.name, "(bogus)")
