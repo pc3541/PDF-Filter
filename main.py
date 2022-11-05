@@ -23,11 +23,10 @@ reader = load_model()
 st.title("Documents:")
 
 def run():
-    for i in range(len(uploaded_files)):
-        input_pdf = uploaded_files[i]
-        pdfReader = PyPDF2.PdfReader(input_pdf)
+    for file in uploaded_files:
+        pdfReader = PyPDF2.PdfReader(file)
         if len(pdfReader.pages[0].extractText()) == 0:
-            doc = fitz.open(stream=input_pdf.read())
+            doc = fitz.open(stream=file.read())
             for page in doc:
                 pix = page.get_pixmap()
                 result = reader.readtext(np.array(pix))
