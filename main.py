@@ -26,18 +26,17 @@ def run():
     for file in uploaded_files:
         pdfReader = PyPDF2.PdfReader(file)
         if len(pdfReader.pages[0].extractText()) == 0:
-            doc = fitz.open(file)
-            for page in doc:
-                pix = page.get_pixmap()
-                result = reader.readtext(np.array(pix))
-                result_text = []
-                for text in result:
-                    result_text.append(text[1])
-                final_text = " ".join([str(x) for x in result_text])
-                if "ACORD 25" not in final_text:
-                    st.write(file.name, " page ", page, " **(bogus)**")
-                else:
-                    st.write(file.name, " page ", page, "(valid)")
+            bytes_data = file.read()
+            image = Image.open(io.BytesIO(bytes_data))
+            result = reader.readtext(np.array(pix))
+            result_text = []
+            for text in result:
+                result_text.append(text[1])
+            final_text = " ".join([str(x) for x in result_text])
+            if "ACORD 25" not in final_text:
+                st.write(file.name, " page ", page, " **(bogus)**")
+            else:
+                st.write(file.name, " page ", page, "(valid)")
         else:
             for pg in range(len(pdfReader.pages)):
                 pageObj = pdfReader.pages[pg]
