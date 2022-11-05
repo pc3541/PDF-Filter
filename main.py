@@ -29,23 +29,22 @@ def run():
         for pg in range(len(pdfReader.pages)):
             pageObj = pdfReader.pages[pg]
             PDF_text = pageObj.extractText()
-            if "ACORD 25" not in PDF_text:
-                if len(PDF_text) == 0:
-                    doc = fitz.open(input_pdf, filetype="pdf")
-                    for page in doc:
-                        pix = page.get_pixmap()
-                        result = reader.readtext(np.array(pil_image))
-                        result_text = []
-                        for text in result:
-                            result_text.append(text[1])
-                        final_text = " ".join([str(x) for x in result_text])
-                        if "ACORD 25" not in final_text:
-                            st.write(input_pdf.name, " page ", page, " **(bogus)**")
-                        else:
-                            st.write(input_pdf.name, "(valid)")
-                            continue
-                else:
-                    st.write(input_pdf.name, " page ", pg, " **(bogus)**")
+            if "ACORD 25" not in PDF_text and len(PDF_text) > 0:
+                st.write(input_pdf.name, " page ", pg, " **(bogus)**")
+            elif len(PDF_text) == 0:
+                doc = fitz.open(pageObj)
+                for page in doc:
+                    pix = page.get_pixmap()
+                    result = reader.readtext(np.array(pix))
+                    result_text = []
+                    for text in result:
+                        result_text.append(text[1])
+                    final_text = " ".join([str(x) for x in result_text])
+                    if "ACORD 25" not in final_text:
+                        st.write(input_pdf.name, " page ", page, " **(bogus)**")
+                    else:
+                        st.write(input_pdf.name, "(valid)")
+                        continue
             else:
                 st.write(input_pdf.name, "(valid)")
                 continue
