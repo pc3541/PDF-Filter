@@ -46,7 +46,7 @@ def run():
                 if "ACORD 25" not in PDF_text and len(PDF_text) > 0:
                     st.write(input_pdf.name, " page ", pg, " **(bogus)**")
                 elif "ACORD 25" in PDF_text:
-                    st.write(input_pdf.name, " page ", page, "(valid)")
+                    st.write(input_pdf.name, " page ", pg, "(valid)")
 
     
 if st.sidebar.button("Run filtering"):
