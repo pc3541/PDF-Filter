@@ -31,7 +31,7 @@ def run():
             PDF_text = pageObj.extractText()
             if "ACORD 25" not in PDF_text and len(PDF_text) > 0:
                 st.write(input_pdf.name, " page ", pg, " **(bogus)**")
-            elif "ACORD 25" is in PDF_text:
+            elif "ACORD 25" in PDF_text:
                 st.write(input_pdf.name, "(valid)")
                 continue
         doc = fitz.open(stream=input_pdf.read())
