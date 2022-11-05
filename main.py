@@ -35,17 +35,17 @@ def run():
                     result_text.append(text[1])
                 final_text = " ".join([str(x) for x in result_text])
                 if "ACORD 25" not in final_text:
-                    st.write(input_pdf.name, " page ", page, " **(bogus)**")
+                    st.write(file.name, " page ", page, " **(bogus)**")
                 else:
-                    st.write(input_pdf.name, " page ", page, "(valid)")
+                    st.write(file.name, " page ", page, "(valid)")
         else:
             for pg in range(len(pdfReader.pages)):
                 pageObj = pdfReader.pages[pg]
                 PDF_text = pageObj.extractText()
                 if "ACORD 25" not in PDF_text and len(PDF_text) > 0:
-                    st.write(input_pdf.name, " page ", pg, " **(bogus)**")
+                    st.write(file.name, " page ", pg, " **(bogus)**")
                 elif "ACORD 25" in PDF_text:
-                    st.write(input_pdf.name, " page ", pg, "(valid)")
+                    st.write(file.name, " page ", pg, "(valid)")
 
     
 if st.sidebar.button("Run filtering"):
