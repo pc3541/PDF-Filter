@@ -31,20 +31,19 @@ def run():
             PDF_text = pageObj.extractText()
             if "ACORD 25" not in PDF_text and len(PDF_text) > 0:
                 st.write(input_pdf.name, " page ", pg, " **(bogus)**")
-            elif len(PDF_text) == 0:
-                doc = fitz.open(pageObj)
-                for page in doc:
-                    pix = page.get_pixmap()
-                    result = reader.readtext(np.array(pix))
-                    result_text = []
-                    for text in result:
-                        result_text.append(text[1])
-                    final_text = " ".join([str(x) for x in result_text])
-                    if "ACORD 25" not in final_text:
-                        st.write(input_pdf.name, " page ", page, " **(bogus)**")
-                    else:
-                        st.write(input_pdf.name, "(valid)")
-                        continue
+            elif "ACORD 25" is in PDF_text:
+                st.write(input_pdf.name, "(valid)")
+                continue
+        doc = fitz.open(stream=input_pdf.read())
+        for page in doc:
+            pix = page.get_pixmap()
+            result = reader.readtext(np.array(pix))
+            result_text = []
+            for text in result:
+                result_text.append(text[1])
+            final_text = " ".join([str(x) for x in result_text])
+            if "ACORD 25" not in final_text:
+                st.write(input_pdf.name, " page ", page, " **(bogus)**")
             else:
                 st.write(input_pdf.name, "(valid)")
                 continue
