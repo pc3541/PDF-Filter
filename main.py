@@ -26,8 +26,7 @@ def run():
     for file in uploaded_files:
         pdfReader = PyPDF2.PdfReader(file)
         if len(pdfReader.pages[0].extractText()) == 0:
-            bytes_data = file.read()
-            with fitz.open(stream=bytes_data) as doc:
+            with fitz.open(stream=file.read()) as doc:
                 for page in doc:
                     pix = page.get_pixmap()
                     result = reader.readtext(np.array(pix))
